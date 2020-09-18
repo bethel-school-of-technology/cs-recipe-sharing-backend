@@ -1,4 +1,4 @@
-package com.receipeshare.controllers;
+package com.recipeshare.auth;
 
 public class Ingredients {
 	

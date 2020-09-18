@@ -1,4 +1,4 @@
-package com.receipeshare.controllers;
+package com.recipeshare.auth;
 
 import org.springframework.data.repository.CrudRepository;
 
