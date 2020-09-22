@@ -1,6 +1,8 @@
 package com.recipeshare.auth;
 
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,13 +15,14 @@ public class Recipe {
 		@GeneratedValue(strategy=GenerationType.AUTO)
 		private Integer id;
 		
+		private Timestamp time_created;
 		private String title;
 		private String description;
 		private Integer servingSize;
 		private Integer cookTime;
 		private String difficulty;
 		private String image;
-		private Ingredients[] ingredients;
+	//	private Ingredients[] ingredients;
 		private String directions;
 		private String author;
 		private Integer authorId;
@@ -31,6 +34,13 @@ public class Recipe {
 		public void setId(Integer id) {
 			this.id = id;
 		}
+		public Timestamp getTimeCreated() {
+			return time_created;
+		}
+		public void setTimeCreated(Timestamp time_created) {
+			this.time_created = time_created;
+		}
+		
 		public String getTitle() {
 			return title;
 		}
@@ -66,12 +76,6 @@ public class Recipe {
 		}
 		public void setImage(String image) {
 			this.image = image;
-		}
-		public Ingredients[] getIngredients() {
-			return ingredients;
-		}
-		public void setIngredients(Ingredients[] ingredients) {
-			this.ingredients = ingredients;
 		}
 		public String getDirections() {
 			return directions;

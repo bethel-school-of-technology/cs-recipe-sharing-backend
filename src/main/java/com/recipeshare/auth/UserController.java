@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping(path="/user")
+@RequestMapping(path="/api/user")
 public class UserController {
 
 @Autowired
@@ -22,7 +22,7 @@ private SqlUserDetailsService userService;
 
  @PostMapping(path="/register")
   public void register(@RequestBody User newUser) {
-    userService.Save(newUser);
+	 userService.Save(newUser);
   }
  
  @GetMapping(path="")
