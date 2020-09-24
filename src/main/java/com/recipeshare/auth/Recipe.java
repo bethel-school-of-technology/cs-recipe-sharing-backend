@@ -1,7 +1,7 @@
 package com.recipeshare.auth;
 
-
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,28 +10,54 @@ import javax.persistence.Id;
 
 @Entity
 public class Recipe {
-	
-		@Id
-		@GeneratedValue(strategy=GenerationType.AUTO)
-		private Integer id;
-		
-		private Timestamp time_created;
-		private String title;
-		private String description;
-		private Integer servingSize;
-		private Integer cookTime;
-		private String difficulty;
-		private String image;
-	//	private Ingredients[] ingredients;
-		private String directions;
-		private String author;
-		private Integer authorId;
-		
-		
-		public Integer getId() {
-			return id;
-		}
-		public void setId(Integer id) {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+
+	private Timestamp time_created;
+	private String title;
+	private String description;
+	private Integer servingSize;
+	private Integer cookTime;
+	private String difficulty;
+	private String image;
+	private ArrayList<String> ingredients_name;
+	private ArrayList<Integer> ingredients_amount;
+	private ArrayList<String> ingredients_measurement;
+	private String directions;
+	private String author;
+	private Integer authorId;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public ArrayList<String> getIngredients_measurement() {
+		return ingredients_measurement;
+	}
+
+	public void setIngredients_measurement(ArrayList<String> ingredients_measurement) {
+		this.ingredients_measurement = ingredients_measurement;
+	}
+
+	public ArrayList<Integer> getIngredients_amount() {
+		return ingredients_amount;
+	}
+
+	public void setIngredients_amount(ArrayList<Integer> ingredients_amount) {
+		this.ingredients_amount = ingredients_amount;
+	}
+
+	public ArrayList<String> getIngredients_name() {
+		return ingredients_name;
+	}
+
+	public void setIngredients_name(ArrayList<String> ingredients_name) {
+		this.ingredients_name = ingredients_name;
+	}
+
+	public void setId(Integer id) {
 			this.id = id;
 		}
 		public Timestamp getTimeCreated() {

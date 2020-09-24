@@ -23,61 +23,72 @@ Here are the end points as of right now:
 
 
 ### User Structure
-
 Here is the JSON that needs to be sent in the BODY to register a user:
-{
+```{
     "username":"user",
     "email": "email",
     "password":"password"
-}
+}```
 Here is the JSON that needs to be sent in the BODY to login:
-{
+```{
     "username":"username",
     "password":"password"
-}
+}```
 Here is the JSON that gets returned when a user's info is requested (the user's info is requested by passing the authorization token and in the header request the username of the user):
-{
+```{
     "id": 5,
     "username": "username",
     "email": "email",
     "password": "encrypted",
     "savedRecipes": [saved IDs]
-}
+}```
 
-### Recipe structure so far:
+### Authorization
+For all requests besides the Register and Get Recipes, you must pass in the header of your requests an **Authorization** key with the JWT token as the value. You will receive this token in the header of the response upon a successful login.
+
+### Recipe structure:
 This is the JSON that needs passed in the BODY to create a recipe:
-{
+```{
     "title":"ethans Recipe",
     "description":"A cool recipe",
     "servingSize":8,
     "cookTime": 30,
 	"difficulty": "easy",
 	"image": "url",
-	"ingredients": [
-        {"name":"pepper", "amount":3, "measurement":"tablespoon(s)"},
-        {"name":"salt", "amount":2, "measurement":"teaspoon(s)"}
-        ],
+    "ingredients_name": ["salt", "pepper"],
+    "ingredients_amount": [2, 3],
+    "ingredients_measurement": ["teaspoon", "tablespoon"],
 	"directions": "stir things together",
 	"author":"ethanmcneil",
 	"authorId":42
-}
+}```
+
 This is the JSON data returned from a get request on the recipes:
-{
-        "id": 10,
+
+```{       "id": 26,
         "title": "ethans Recipe",
         "description": "A cool recipe",
         "servingSize": 8,
         "cookTime": 30,
         "difficulty": "easy",
         "image": "url",
-        "ingredients": [
-        {"name":"pepper", "amount":3, "measurement":"tablespoon(s)"},
-        {"name":"salt", "amount":2, "measurement":"teaspoon(s)"}
+        "ingredients_name": [
+            "salt",
+            "pepper"
+        ],
+        "ingredients_amount": [
+            2,
+            3
+        ],
+        "ingredients_measurement": [
+            "teaspoon",
+            "tablespoon"
         ],
         "directions": "stir things together",
         "author": "ethanmcneil",
         "authorId": 42,
-        "timeCreated": "2020-09-22T20:29:32.778+00:00"
-}
+        "timeCreated": "2020-09-24T20:27:09.585+00:00"
+}```
 
-PLEASE NOTE AS OF 9-21 the everything is working except the ingredients part of the recipes.
+## LEFT TO DO:
+Update and delete functions for users and recipes.
