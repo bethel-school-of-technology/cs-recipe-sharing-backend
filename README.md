@@ -24,71 +24,100 @@ Here are the end points as of right now:
 
 ### User Structure
 Here is the JSON that needs to be sent in the BODY to register a user:
-`{
+```
+{
     "username":"user",
     "email": "email",
     "password":"password"
-}`
+}
+```
 Here is the JSON that needs to be sent in the BODY to login:
-`{
+```
+{
     "username":"username",
     "password":"password"
-}`
+}
+```
 Here is the JSON that gets returned when a user's info is requested (the user's info is requested by passing the authorization token and in the header request the username of the user):
-`{
+```
+{
     "id": 5,
     "username": "username",
     "email": "email",
     "password": "encrypted",
     "savedRecipes": [saved IDs]
-}`
+}
+```
 
 ### Authorization
 For all requests besides the Register and Get Recipes, you must pass in the header of your requests an **Authorization** key with the JWT token as the value. You will receive this token in the header of the response upon a successful login.
 
 ### Recipe structure:
 This is the JSON that needs passed in the BODY to create a recipe:
-`{
-    "title":"ethans Recipe",
+```
+{
+   "title":"ethans 54 Recipe",
     "description":"A cool recipe",
     "servingSize":8,
     "cookTime": 30,
 	"difficulty": "easy",
+    "ingredients": [{
+                    "name": "salt",
+                    "amount": 3,
+                    "measurement": "tablespoons"
+                    },
+                    {
+                    "name": "pepper",
+                    "amount": 3,
+                    "measurement": "tablespoons"
+                    }],
 	"image": "url",
-    "ingredients_name": ["salt", "pepper"],
-    "ingredients_amount": [2, 3],
-    "ingredients_measurement": ["teaspoon", "tablespoon"],
 	"directions": "stir things together",
 	"author":"ethanmcneil",
-	"authorId":42
-}`
+	"authorId":22
+}
+```
 
 This is the JSON data returned from a get request on the recipes:
-
-`{       "id": 26,
-        "title": "ethans Recipe",
+```
+{
+        "id": 40,
+        "title": "ethans 54 Recipe",
         "description": "A cool recipe",
         "servingSize": 8,
         "cookTime": 30,
-        "difficulty": "easy",
-        "image": "url",
+        "ingredients": [
+            {
+                "name": "salt",
+                "amount": 3,
+                "measurement": "tablespoons"
+            },
+            {
+                "name": "pepper",
+                "amount": 3,
+                "measurement": "tablespoons"
+            }
+        ],
         "ingredients_name": [
             "salt",
             "pepper"
         ],
         "ingredients_amount": [
-            2,
+            3,
             3
         ],
         "ingredients_measurement": [
-            "teaspoon",
-            "tablespoon"
+            "tablespoons",
+            "tablespoons"
         ],
+        "difficulty": "easy",
+        "image": "url",
         "directions": "stir things together",
         "author": "ethanmcneil",
-        "authorId": 42,
-        "timeCreated": "2020-09-24T20:27:09.585+00:00"
-}`
+        "authorId": 22,
+        "timeCreated": "2020-09-30T19:10:12.728+00:00"
+}
+```
 
 ## LEFT TO DO:
 Update and delete functions for users and recipes.

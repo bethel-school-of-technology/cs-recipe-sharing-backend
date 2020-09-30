@@ -2,11 +2,11 @@ package com.recipeshare.auth;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Recipe {
@@ -14,23 +14,43 @@ public class Recipe {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
-
 	private Timestamp time_created;
 	private String title;
 	private String description;
 	private Integer servingSize;
 	private Integer cookTime;
-	private String difficulty;
-	private String image;
+	@Transient
+	private ArrayList<Ingredients> ingredients;
 	private ArrayList<String> ingredients_name;
 	private ArrayList<Integer> ingredients_amount;
 	private ArrayList<String> ingredients_measurement;
+	private String difficulty;
+	private String image;
 	private String directions;
 	private String author;
 	private Integer authorId;
 
+	
+
+	/*
+	 * @OneToMany(cascade=CascadeType.ALL)
+	 * 
+	 * @JoinTable(name="Recipe_Ingredients",
+	 * joinColumns={@JoinColumn(name="recipeid", referencedColumnName="id")},
+	 * inverseJoinColumns={@JoinColumn(name="ingred_id",
+	 * referencedColumnName="id")}) private Set<Ingredients> ingredients;
+	 */
+
 	public Integer getId() {
 		return id;
+	}
+
+	public ArrayList<Ingredients> getIngredients() {
+		return ingredients;
+	}
+
+	public void setIngredients(ArrayList<Ingredients> ingredients) {
+		this.ingredients = ingredients;
 	}
 
 	public ArrayList<String> getIngredients_measurement() {
