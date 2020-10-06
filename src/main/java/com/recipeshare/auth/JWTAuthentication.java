@@ -25,6 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JWTAuthentication extends UsernamePasswordAuthenticationFilter {
 	private AuthenticationManager authenticationManager;
+	private SqlUserDetailsService userService;
 	  
 	  public JWTAuthentication(AuthenticationManager authenticationManager) {
 	    this.authenticationManager = authenticationManager;
@@ -53,7 +54,14 @@ public class JWTAuthentication extends UsernamePasswordAuthenticationFilter {
 	      .withSubject(((User) auth.getPrincipal()).getUsername())
 	      .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 	      .sign(HMAC512(SECRET.getBytes()));
-	    res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
+		com.recipeshare.auth.User foundUser = userService.loadFullUserByUsername("ethan");
+		if(foundUser != null){
+		res.addHeader("username", foundUser.getUsername());
+		res.addHeader("email", foundUser.getEmail());
+		res.addHeader("savedRecipes", foundUser.getSavedRecipes().toString());
+		res.addHeader("user_id", foundUser.getId().toString());
+		}
 	  }
 
 	  @Override

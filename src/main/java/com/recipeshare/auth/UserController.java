@@ -33,7 +33,7 @@ private SqlUserDetailsService userService;
 
 
 @DeleteMapping("/{id}")
-public ResponseEntity<User> deletePost(@PathVariable(value="id") Integer id) {
+public ResponseEntity<User> deleteUser(@PathVariable(value="id") Integer id) {
   User foundUser = userService.loadUserById(id);
    if(foundUser == null) {
        return ResponseEntity.notFound().header("Message","Nothing found with that id or you don't have permission").build();
