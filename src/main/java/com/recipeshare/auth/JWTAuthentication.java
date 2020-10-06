@@ -55,13 +55,6 @@ public class JWTAuthentication extends UsernamePasswordAuthenticationFilter {
 	      .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
 	      .sign(HMAC512(SECRET.getBytes()));
 		res.addHeader(HEADER_STRING, TOKEN_PREFIX + token);
-		com.recipeshare.auth.User foundUser = userService.loadFullUserByUsername("ethan");
-		if(foundUser != null){
-		res.addHeader("username", foundUser.getUsername());
-		res.addHeader("email", foundUser.getEmail());
-		res.addHeader("savedRecipes", foundUser.getSavedRecipes().toString());
-		res.addHeader("user_id", foundUser.getId().toString());
-		}
 	  }
 
 	  @Override
