@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.gson.Gson;
+import org.apache.commons.io.FilenameUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -85,8 +86,9 @@ public class RecipeController {
 			 InputStream inputStream = null;
 			 OutputStream outputStream = null;
 			 Date date = new Date();
+			 String filExt = FilenameUtils.getExtension(imageFile.getOriginalFilename());
 			 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-			 String fileName = dateFormat.format(date).toString() + "." + imageFile.getContentType();
+			 String fileName = dateFormat.format(date).toString() + "." + filExt;
 			 System.out.println(fileName);
 			 File newFile = new File("src/main/resources/images/" + fileName);
 			 try {
@@ -105,9 +107,8 @@ public class RecipeController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println(newFile.getAbsolutePath() + " and " + newFile.getName() + " and " + newFile.toPath());
 	
-			return "localhost:8080/api/recipe/images/" + newFile.getName();
+			return "http://localhost:8080/api/recipe/images/" + newFile.getName();
 		}
 
 		@GetMapping(path="/images/{name}")
