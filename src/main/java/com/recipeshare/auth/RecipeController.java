@@ -64,6 +64,7 @@ public class RecipeController {
 			 Gson gson = new Gson();
 			 Recipe newRecipe = gson.fromJson(incomingRecipe, Recipe.class);
 			 newRecipe.setTimeCreated(new Timestamp(System.currentTimeMillis()));
+			 if(newRecipe.getIngredients().size() > 0) {
 			 ArrayList<Ingredients> incomingIngredients = newRecipe.getIngredients();
 			 ArrayList<String> iname = new ArrayList<String>();
 			 ArrayList<Integer> iamount = new ArrayList<Integer>();
@@ -76,6 +77,7 @@ public class RecipeController {
 			 newRecipe.setIngredients_name(iname);
 			 newRecipe.setIngredients_measurement(imeasure);
 			 newRecipe.setIngredients_amount(iamount);
+			}
 			 recipeRepository.save(newRecipe);
 			 return "Success";
 		 }
