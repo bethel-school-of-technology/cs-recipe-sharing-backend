@@ -1,17 +1,31 @@
 package com.recipeshare.auth;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.gson.Gson;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(path="/api/recipe")
@@ -23,6 +37,7 @@ public class RecipeController {
 		 
 		 @GetMapping(path="")
 		 public @ResponseBody Iterable<Recipe> getAllRecipes() {
+			 System.out.println("Get recipes called");
 			Iterable<Recipe> recipes = recipeRepository.findAll();
 			//Check to see if the database is empty
 			if(!recipes.iterator().hasNext()) {
@@ -38,10 +53,8 @@ public class RecipeController {
 					compilingIngredients.add(newIngredient);
 				}
 				r.setIngredients(compilingIngredients);
-				System.out.println(r);
 				}
 			}
-			System.out.println(recipes);
 			 return recipes;
 		 }
 		 
@@ -65,6 +78,48 @@ public class RecipeController {
 			 recipeRepository.save(newRecipe);
 			 return "Success";
 		 }
+
+		 @PostMapping(path="/uploadImage")
+		 public String uploadImage(@RequestParam("imageFile") MultipartFile imageFile) {
+			 System.out.println("upload image called");
+			 InputStream inputStream = null;
+			 OutputStream outputStream = null;
+			 Date date = new Date();
+			 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+			 String fileName = dateFormat.format(date).toString() + "." + imageFile.getContentType();
+			 System.out.println(fileName);
+			 File newFile = new File("src/main/resources/images/" + fileName);
+			 try {
+				inputStream = imageFile.getInputStream();
+	
+				if (!newFile.exists()) {
+					newFile.createNewFile();
+				}
+				outputStream = new FileOutputStream(newFile);
+				int read = 0;
+				byte[] bytes = new byte[1024];
+	
+				while ((read = inputStream.read(bytes)) != -1) {
+					outputStream.write(bytes, 0, read);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(newFile.getAbsolutePath() + " and " + newFile.getName() + " and " + newFile.toPath());
+	
+			return "localhost:8080/api/recipe/images/" + newFile.getName();
+		}
+
+		@GetMapping(path="/images/{name}")
+		public ResponseEntity<byte[]> getImage(@PathVariable(value="name") String name) throws IOException {
+			System.out.println("image called");
+			ClassPathResource imgFile = new ClassPathResource("images/" + name); 
+			byte[] imageBytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+			return ResponseEntity
+					.ok()
+					.contentType(MediaType.IMAGE_JPEG)
+					.body(imageBytes);
+			}
 
 
 		 private void populateFirst(){
