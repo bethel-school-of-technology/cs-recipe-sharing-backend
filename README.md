@@ -133,4 +133,4 @@ This is the JSON data returned from a get request on the recipes:
 ```
 
 ## LEFT TO DO:
-Update and delete functions for users and recipes.
+Test everything over and over :-)
