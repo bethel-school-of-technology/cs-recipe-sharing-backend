@@ -25,7 +25,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JWTAuthentication extends UsernamePasswordAuthenticationFilter {
 	private AuthenticationManager authenticationManager;
-	private SqlUserDetailsService userService;
 	  
 	  public JWTAuthentication(AuthenticationManager authenticationManager) {
 	    this.authenticationManager = authenticationManager;
