@@ -30,17 +30,6 @@ public class Recipe {
 	private String author;
 	private Integer authorId;
 
-	
-
-	/*
-	 * @OneToMany(cascade=CascadeType.ALL)
-	 * 
-	 * @JoinTable(name="Recipe_Ingredients",
-	 * joinColumns={@JoinColumn(name="recipeid", referencedColumnName="id")},
-	 * inverseJoinColumns={@JoinColumn(name="ingred_id",
-	 * referencedColumnName="id")}) private Set<Ingredients> ingredients;
-	 */
-
 	public Integer getId() {
 		return id;
 	}
