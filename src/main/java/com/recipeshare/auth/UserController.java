@@ -55,13 +55,15 @@ public ResponseEntity<User> updateMyRecipe(@RequestHeader int userId, @RequestHe
 		 savedRecipes = new ArrayList<Integer> ();
 	 }
 	 if (savedRecipes.contains(recipeId)){
-		Integer removeID = -1;
+		int removeID = -1;
 		for (Integer i = 0; i < savedRecipes.size(); i++){
 			if(savedRecipes.get(i).equals(recipeId)){
 				removeID = i;
 			}
 		}
 		 savedRecipes.remove(removeID);
+		 System.out.println(removeID + " " + savedRecipes);
+		 foundUser.setSavedRecipes(savedRecipes);
 		 userService.Update(foundUser);
 		 return ResponseEntity.ok(foundUser);
 	 }
