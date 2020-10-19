@@ -190,13 +190,14 @@ public class RecipeController {
 			};
 
 		 private void populateFirst(){
-			 for(Integer i = 0; i < 10; i++) {
+			for(Integer i = 0; i < 10; i++) {
 				 //add some variables to mix things up
 				 String description = "This is a wonderful recipe full of flavor and spice!";
 				 String title = "Soup";
 				 String[] adjectives = {"Amazing", "Wonderful", "Incredible", "The Best", "Excellent", "Great", "Perfect", "Delicious", "Tasty", "Simple"};
 				 String difficulty = "Easy";
 				 String directions = "Pour everything together and cook it.";
+				 String imageLocation = "http://localhost:8080/api/recipe/images/bacon-squash.jpg";
 				 ArrayList<String> ingredients_name = new ArrayList<String>(5);
 				 ArrayList<Integer> ingredients_amount = new ArrayList<Integer>(5);
 				 ArrayList<String> ingredients_measurement = new ArrayList<String>(5);
@@ -215,12 +216,13 @@ public class RecipeController {
 				 ingredients_measurement.add("teaspoon(s)");
 				 ingredients_measurement.add("ounce(s)");
 				 ingredients_measurement.add("cups(s)");
-			
-				 if(i % 2 == 0 || i % 3 != 0) {
+				 			
+				 if(i == 0 || i % 3 == 0) {
 					description = "This will take you back home to the kitchens of Italy with every bite!";
 				 	title = "Pasta";
 				 	difficulty = "Hard";
 					directions = "Cook the pasta, combine the ingredients for the sauce, and eat up!";
+					imageLocation = "http://localhost:8080/api/recipe/images/pasta.jpg";
 					ingredients_name.set(2, "Pasta");
 					ingredients_name.set(1, "Tomato Sauce");
 					ingredients_name.set(0, "Chicken");
@@ -237,11 +239,12 @@ public class RecipeController {
 					ingredients_measurement.set(3, "tablespoon(s)");
 					ingredients_measurement.set(4, "teaspoon(s)");
 				 }
-				 if(i % 3 == 0) {
+				 if(i % 3 != 0 && i % 2 == 0) {
 					description = "This is a wonderful recipe full of flavor and spice!";
 					title = "Grilled Steak";
 					difficulty = "Medium";
 					   directions = "Grill the steak. Cook the potatoes. Put on a plate. Eat.";
+					   imageLocation = "http://localhost:8080/api/recipe/images/steak.jpg";
 					   ingredients_name.set(0, "Beef");
 					   ingredients_name.set(1, "Salt");
 					   ingredients_name.set(2, "Pepper");
@@ -260,8 +263,8 @@ public class RecipeController {
 				 }
 
 				 Recipe recipe = new Recipe();
-				 recipe.setAuthor("Team Code Chefs");
-				 recipe.setAuthorId(100);
+				 recipe.setAuthor("TeamCodeChefs");
+				 recipe.setAuthorId(106518);
 				 recipe.setCookTime(30 + (i*5));
 				 recipe.setDescription(description);
 				 recipe.setDifficulty(difficulty);
@@ -272,7 +275,7 @@ public class RecipeController {
 				 recipe.setServingSize(8 + i);
 				 recipe.setTitle(adjectives[i] + " " + title + " with " + ingredients_name.get(0));
 				 recipe.setTimeCreated(new Timestamp(System.currentTimeMillis()));
-				 recipe.setImage("http://localhost:8080/api/recipe/images/bacon-squash.jpg");
+				 recipe.setImage(imageLocation);
 				 recipeRepository.save(recipe);
 			 }
 

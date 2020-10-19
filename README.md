@@ -132,5 +132,5 @@ This is the JSON data returned from a get request on the recipes:
 }
 ```
 
-## LEFT TO DO:
-Test everything over and over :-)
+### Left to do:
+ENJOY THE APPLICATION!
